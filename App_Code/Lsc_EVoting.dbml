@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EvotingDB" Class="Lsc_EVotingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ALI3-PC\MSSQL2008;Initial Catalog=EvotingDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EvotingDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblJozeiatRai" Member="tblJozeiatRais">
+    <Type Name="tblJozeiatRai">
+      <Column Name="JozeiatRaiId" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RaigiriTitleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RaiQuantity" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="KandidName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tblJozeiatRai_tblRaidahandegan" Member="tblRaidahandegans" ThisKey="JozeiatRaiId" OtherKey="JozeiatRaiId" Type="tblRaidahandegan" />
+      <Association Name="tblRaigiriTitle_tblJozeiatRai" Member="tblRaigiriTitle" ThisKey="RaigiriTitleId" OtherKey="RaigiriTitleId" Type="tblRaigiriTitle" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRaigiriTitle" Member="tblRaigiriTitles">
+    <Type Name="tblRaigiriTitle">
+      <Column Name="RaigiriTitleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RaigiriName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CloseBit" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateCreation" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateFinish" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tblRaigiriTitle_tblJozeiatRai" Member="tblJozeiatRais" ThisKey="RaigiriTitleId" OtherKey="RaigiriTitleId" Type="tblJozeiatRai" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblUsers" Member="tblUsers">
+    <Type Name="tblUser">
+      <Column Name="UserID" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UsersName" Type="System.String" DbType="NVarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UsersPwa" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="NameOfUser" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="SnameOfUser" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="UserTypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserEmail" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="UserMobilePhone" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="tblUser_tblRaidahandegan" Member="tblRaidahandegans" ThisKey="UsersName" OtherKey="UsersNmae" Type="tblRaidahandegan" />
+      <Association Name="tblUserType_tblUser" Member="tblUserType" ThisKey="UserTypeID" OtherKey="UserTypeID" Type="tblUserType" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblUserTypes" Member="tblUserTypes">
+    <Type Name="tblUserType">
+      <Column Name="UserTypeID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserTypeDescription" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Association Name="tblUserType_tblUser" Member="tblUsers" ThisKey="UserTypeID" OtherKey="UserTypeID" Type="tblUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblRaidahandegan" Member="tblRaidahandegans">
+    <Type Name="tblRaidahandegan">
+      <Column Name="RaiDahandaId" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UsersNmae" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="JozeiatRaiId" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="DateRai" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="tblJozeiatRai_tblRaidahandegan" Member="tblJozeiatRai" ThisKey="JozeiatRaiId" OtherKey="JozeiatRaiId" Type="tblJozeiatRai" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="tblUser_tblRaidahandegan" Member="tblUser" ThisKey="UsersNmae" OtherKey="UsersName" Type="tblUser" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.xtblJozeiatRai" Member="xtblJozeiatRais">
+    <Type Name="xtblJozeiatRai">
+      <Column Name="JozeiatRaiId" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="RaigiriName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="RaiQuantity" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="KandidName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RaigiriTitleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblMessage" Member="tblMessages">
+    <Type Name="tblMessage">
+      <Column Name="MessageId" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="message" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblLinks" Member="tblLinks">
+    <Type Name="tblLink">
+      <Column Name="LinlId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LinkTitle" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LinkPath" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="LinkSortNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AlllowAdmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AllowRegisterUsers" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AllowUsualy" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
